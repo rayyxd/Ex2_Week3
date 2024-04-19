@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatGPT Interface</title>
+</head>
+<body>
+<form id="chatForm">
+    <label for="userInput">Ask me:</label>
+    <input type="text" id="userInput">
+    <button type="button" onclick="askGPT()">Ask me</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+    function askGPT() {
+        const userInput = document.getElementById('userInput').value;
+        fetch('/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `userInput=${encodeURIComponent(userInput)}`,
+        })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('result').textContent = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+</body>
+</html>
